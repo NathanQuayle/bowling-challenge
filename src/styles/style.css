@@ -3,3 +3,59 @@
 * {
     font-family: 'Roboto', sans-serif;
 }
+
+#current-roll {
+    max-width: fit-content;
+    margin-left: auto;
+}
+
+p {
+    margin: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(11, 1fr);
+    grid-template-rows: 50px;
+    grid-column-gap: 5px;
+}
+
+.grid-item {
+    border: 1px solid gray;
+    position: relative;
+}
+
+.first-bowl > input, .second-bowl > input, .third-bowl > input {
+    margin: 0;
+    border-bottom: 1px solid gray;
+    border-left: 1px solid gray;
+    border-top: none;
+    border-right: none;
+    float: right;
+    width: 33%;
+    box-sizing: border-box;
+}
+
+.third-bowl > input {
+    width: 34%;
+    border-left: none;
+} 
+
+.total-frame {
+    position: absolute;
+    bottom: 5px;
+    left: 10px;
+}
+
+.name-container {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    transform: translateY(-50%);
+    text-align: center;
+}
+
+.grid-container > .grid-item:first-child {
+    color: white;
+    background: #3498db;
+}
