@@ -17,11 +17,8 @@ class Bowling {
     }
 
     setScore(frame, bowl, knockedDownPins) {
-        if (knockedDownPins > 10) {
-            throw('Number too high!');
-        } else if (knockedDownPins < 0) {
-            throw('Number too low!');
-        }
+        if (knockedDownPins > 10) throw('Number too high!');
+        if (knockedDownPins < 0) throw('Number too low!');
 
         this.frames[frame].rolls[bowl] = knockedDownPins;
     }

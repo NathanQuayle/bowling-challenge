@@ -1,10 +1,9 @@
 function updateAllFrames() {
     $('.grid-item').each(function() {
         frame = $(this).data('frame');
+        
+        if (frame == undefined) return;
 
-        if (frame == undefined) {
-            return;
-        }
         $(this).find('.frame-score > p').text(bowling.getFrameScore(frame));
     });
 }
