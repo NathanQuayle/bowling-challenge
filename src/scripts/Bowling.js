@@ -1,40 +1,45 @@
 class Bowling {
     constructor() {
-        this.totalScore = 0;
-        this.currentFrame = 0;
-        this.currentBowl = 0;
         this.liveGame = true;
         this.frames = [
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0],
-            [0, 0, 0]
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0], score: 0 },
+            { rolls: [0, 0, 0], score: 0 },
         ];
+        this.totalScore = 0;
     }
 
-    add(roll) {
-        this.frames[this.currentFrame][this.currentBowl] = roll;
-        if (this.currentFrame < 10 && this.currentBowl == 1) {
-            this.nextFrame();
+    setScore(frame, bowl, knockedDownPins) {
+        if (knockedDownPins > 10) {
+            throw('Number too high!');
+        } else if (knockedDownPins < 0) {
+            throw('Number too low!');
         }
 
-        if (this.currentFrame < 10 && this.currentBowl < 2) {
-            this.nextBowl();
-        }
+        this.frames[frame].rolls[bowl] = knockedDownPins;
     }
 
-    nextBowl() {
-        this.currentBowl++;
+    calculateTotalScore() {
+        let score = 0;
+
+        this.frames.forEach(function(frame) {
+            frame.rolls.forEach(function(roll) {
+                score += roll;
+            });
+            frame.score = score;
+        });
+        this.totalScore = score;
     }
 
-    nextFrame() {
-        this.currentFrame++;
-        this.currentBowl = 0;
+    getFrameScore(frame) {
+        return this.frames[frame].score
     }
+
 }

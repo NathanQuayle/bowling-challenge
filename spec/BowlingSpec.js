@@ -3,47 +3,35 @@ describe('Bowling', () => {
         this.bowling = new Bowling;
     });
 
-    describe('.add', () => {
+    describe('.setScore', () => {
         it('should add numbers in the first frame', () => {
-            bowling.add(1);
-            expect(this.bowling.frames[0][0]).toBe(1);
+            bowling.setScore(0, 0, 1);
+            expect(this.bowling.frames[0].rolls[0]).toBe(1);
         });
 
-        it('should call .nextBowl() if frame is < 10 and bowl < 1', () => {
-            spyOn(bowling, 'nextBowl');
-
-            bowling.add(1);
-
-            expect(bowling.nextBowl).toHaveBeenCalled();
+        it('should throw error if number is greater than 10', () => {
+            expect(() => { bowling.setScore(0, 0, 11) }).toThrow('Number too high!');
         });
 
-        it('should call .nextFrame() if frame is < 10 and bowl is 1', () => {
-            spyOn(bowling, 'nextFrame');
-
-            bowling.add(1);
-            bowling.add(1);
-
-            expect(bowling.nextFrame).toHaveBeenCalled();
+        it('should throw error if number is less than 0', () => {
+            expect(() => { bowling.setScore(0, 0, -1) }).toThrow('Number too low!');
         });
     });
 
-    describe('.nextBowl', () => {
-        it('should increment the current bowl', () => {
-            bowling.nextBowl(1);
-            expect(this.bowling.currentBowl).toBe(1);
+    describe('.calculateTotalScore', () => {
+        it('should calculate the score', () => {
+            bowling.frames[0].rolls[0] = 3;
+            bowling.frames[0].rolls[1] = 7;
+            bowling.frames[1].rolls[0] = 7;
+            bowling.calculateTotalScore();
+            expect(bowling.totalScore).toBe(17);
         });
     });
 
-    describe('.nextFrame', () => {  
-        it('should increment the current frame', () => {
-            bowling.nextFrame(1);
-            expect(this.bowling.currentFrame).toBe(1);
-        });
-
-        it('should reset currentBowl to 0', () => {
-            bowling.currentBowl = 1;
-            bowling.nextFrame()
-            expect(bowling.currentBowl).toBe(0);
+    describe('.getFrameScore', () => {
+        it('should return one frames score', () => {
+            bowling.frames[0].score = 3;
+            expect(bowling.getFrameScore(0)).toBe(3);
         });
     });
 });

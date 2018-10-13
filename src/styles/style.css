@@ -41,7 +41,7 @@ p {
     border-left: none;
 } 
 
-.total-frame {
+.frame-score {
     position: absolute;
     bottom: 5px;
     left: 10px;
