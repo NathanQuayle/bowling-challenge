@@ -21,6 +21,11 @@ describe('Bowling', () => {
             bowling.setScore(0, 0, 10);
             expect(() => { bowling.setScore(0, 1, 1) }).toThrow('Already scored a strike!');
         });
+
+        it('should throw error if frame score exceed 10', () => {
+            bowling.setScore(0, 0, 6);
+            expect(() => { bowling.setScore(0, 1, 6) }).toThrow('Frame exceeds 10!');
+        });
     });
 
     describe('.isStrike', () => {
@@ -52,10 +57,10 @@ describe('Bowling', () => {
         });
     });
 
-    describe('.getFrameScore', () => {
+    describe('.calculateFrameScore', () => {
         it('should return one frames score', () => {
-            bowling.frames[0].score = 3;
-            expect(bowling.getFrameScore(0)).toBe(3);
+            bowling.frames[0].rolls[0] = 3;
+            expect(bowling.calculateFrameScore(0)).toBe(3);
         });
     });
 });
