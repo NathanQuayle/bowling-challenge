@@ -19,17 +19,30 @@ class Bowling {
     setScore(frame, bowl, knockedDownPins) {
         if (knockedDownPins > 10) throw('Number too high!');
         if (knockedDownPins < 0) throw('Number too low!');
+        if (bowl > 0 && this.isStrike(frame)) throw('Already scored a strike!');
+        
+        // Resets second bowl to 0 if first bowl is a strike
+        if(bowl == 0 && knockedDownPins == 10) this.frames[frame].rolls[1] = 0;
 
         this.frames[frame].rolls[bowl] = knockedDownPins;
+    }
+
+    isStrike(frame) {
+        return this.frames[frame].rolls[0] == 10;
     }
 
     calculateTotalScore() {
         let score = 0;
 
-        this.frames.forEach(function(frame) {
-            frame.rolls.forEach(function(roll) {
-                score += roll;
-            });
+        this.frames.forEach((frame, frameIndex) => {
+            if(this.isStrike(frameIndex)) {
+                let bonusRolls = this.frames[frameIndex + 1].rolls;
+                score = bonusRolls[0] + bonusRolls[1] + 10;
+            } else {
+                frame.rolls.forEach((roll) => {
+                    score += roll;
+                });
+            }
             frame.score = score;
         });
         this.totalScore = score;

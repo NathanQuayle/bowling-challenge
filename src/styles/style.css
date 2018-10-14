@@ -15,9 +15,29 @@ p {
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(11, 1fr);
-    grid-template-rows: 50px;
+    grid-template-columns: 2fr repeat(10, 1fr);
+    margin: auto;
+    width: 75%;
     grid-column-gap: 5px;
+}
+
+
+.grid-row {
+    grid-template-rows: 50px;
+}
+
+.grid-row > .grid-item:first-child {
+    color: white;
+    background: #3498db;
+}
+
+.grid-header {
+    grid-template-rows: 25px;
+}
+
+.grid-header > .grid-item {
+    border-bottom: none;
+    background: #ecf0f1;
 }
 
 .grid-item {
@@ -25,21 +45,35 @@ p {
     position: relative;
 }
 
-.first-bowl > input, .second-bowl > input, .third-bowl > input {
+.bowl-container {
+    float: right;
+    width: 60%;
+}
+
+.bowl-container > input {
     margin: 0;
+    padding-left: 3px;
     border-bottom: 1px solid gray;
     border-left: 1px solid gray;
     border-top: none;
     border-right: none;
-    float: right;
-    width: 33%;
+    float: left;
+    width: 50%;
     box-sizing: border-box;
 }
 
-.third-bowl > input {
-    width: 34%;
+.grid-item:last-of-type > .bowl-container {
+    width: 100%
+}
+
+.grid-item:last-of-type > .bowl-container > input {
+    width: 33%;
+}
+
+.grid-item:last-of-type > .bowl-container > input:first-of-type {
     border-left: none;
-} 
+    width: 34%;
+}
 
 .frame-score {
     position: absolute;
@@ -47,15 +81,10 @@ p {
     left: 10px;
 }
 
-.name-container {
+.abs-centre {
     position: absolute;
     top: 50%;
     width: 100%;
     transform: translateY(-50%);
     text-align: center;
-}
-
-.grid-container > .grid-item:first-child {
-    color: white;
-    background: #3498db;
 }

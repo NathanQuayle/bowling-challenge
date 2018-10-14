@@ -16,6 +16,22 @@ describe('Bowling', () => {
         it('should throw error if number is less than 0', () => {
             expect(() => { bowling.setScore(0, 0, -1) }).toThrow('Number too low!');
         });
+
+        it('should throw error if first pin is 10 and second pin is over 0', () => {
+            bowling.setScore(0, 0, 10);
+            expect(() => { bowling.setScore(0, 1, 1) }).toThrow('Already scored a strike!');
+        });
+    });
+
+    describe('.isStrike', () => {
+        it('should return true if frame is a strike', () => {
+            bowling.setScore(0, 0, 10);
+            expect(bowling.isStrike(0)).toBe(true)
+        })
+
+        it('should return false if frame is not a strike', () => {
+            expect(bowling.isStrike(0)).toBe(false)
+        })
     });
 
     describe('.calculateTotalScore', () => {
@@ -25,6 +41,14 @@ describe('Bowling', () => {
             bowling.frames[1].rolls[0] = 7;
             bowling.calculateTotalScore();
             expect(bowling.totalScore).toBe(17);
+        });
+
+        it('should handle strikes', () => {
+            bowling.frames[0].rolls[0] = 10;
+            bowling.frames[1].rolls[0] = 3;
+            bowling.frames[1].rolls[1] = 6;
+            bowling.calculateTotalScore();
+            expect(bowling.totalScore).toBe(28);
         });
     });
 
